@@ -26,13 +26,6 @@ namespace SeaBattle
                 var notEmpty = points.Find((p) => p.X == point.X && p.Y == point.Y && p.quadrant == point.quadrant);
                 return notEmpty.ship;
             }
-            set 
-            {
-                if (point._isEmpty)
-                {
-                    
-                }
-            }
         }
         public void AddShip(Ship ship, Point point)
         {
