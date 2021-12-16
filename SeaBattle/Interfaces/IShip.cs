@@ -11,5 +11,6 @@ namespace SeaBattle.Interfaces
         
         public bool Move();
         public string ToString();
+       
     }
 }
