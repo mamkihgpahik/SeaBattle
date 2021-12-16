@@ -8,5 +8,8 @@ namespace SeaBattle.Interfaces
 {
     public interface IShip
     {
+        
+        public bool Move();
+        public string ToString();
     }
 }

@@ -8,5 +8,6 @@ namespace SeaBattle.Interfaces
 {
     public interface IShoot
     {
+        public bool Shoot();
     }
 }

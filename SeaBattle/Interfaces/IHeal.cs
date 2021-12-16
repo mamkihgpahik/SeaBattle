@@ -8,5 +8,6 @@ namespace SeaBattle.Interfaces
 {
     public interface IHeal
     {
+        public bool Heal();
     }
 }
