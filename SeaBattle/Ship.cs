@@ -20,9 +20,9 @@ namespace SeaBattle
             this.Speed = speed;
             this.Direction = direction;
         }
-        public bool Move()
+        public void Move()//заменить тип функции
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Ship move with speed = {Speed} and in {Direction} direction");           
         }
         public override string ToString()
         {
