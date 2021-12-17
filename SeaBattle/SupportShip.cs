@@ -9,7 +9,7 @@ namespace SeaBattle
 {
     public class SupportShip : Ship, IHeal
     {
-        public SupportShip(int size) : base(size)
+        public SupportShip(int size, int speed, int radius, string direction) : base(size, speed, radius, direction)
         {
         }
 

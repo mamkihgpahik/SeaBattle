@@ -9,7 +9,7 @@ namespace SeaBattle.Interfaces
     public interface IShip
     {
         
-        public bool Move();
+        public void Move();
         public string ToString();
        
     }

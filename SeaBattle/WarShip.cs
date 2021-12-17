@@ -9,7 +9,7 @@ namespace SeaBattle
 {
     public class WarShip : Ship, IShoot
     {
-        public WarShip(int size) : base(size)
+        public WarShip(int size, int speed, int radius, string direction) : base(size, speed, radius, direction)
         {
         }
 
