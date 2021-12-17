@@ -12,8 +12,8 @@ namespace SeaBattle
         public int Speed { get; set; }
         public string Direction { get; set; }
         public int Size { get; set; }
-        public int Radus { get; set; }
-        public Ship(int size)
+        public int Radius { get; set; }
+        public Ship(int size, int speed, int radius, string direction) 
         {
             this.Size = size;
             this.Radius = radius;
