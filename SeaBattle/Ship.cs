@@ -11,7 +11,7 @@ namespace SeaBattle
     {
         public int Speed { get; set; }
         public string Direction { get; set; }
-        private int Size { get; set; }
+        public int Size { get; set; }
         public int Radus { get; set; }
         public Ship(int size)
         {

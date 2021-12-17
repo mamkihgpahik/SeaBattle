@@ -12,6 +12,7 @@ namespace SeaBattle
         private Help helper;
         private List<Ship> ships;
         public List<Point> points;
+        Dictionary<Point, Ship> ps; 
         private int Height { get; set; }
         private int Width { get; set; }
         public Field(int height, int width)
@@ -23,8 +24,16 @@ namespace SeaBattle
         {
             get
             {
-                var notEmpty = points.Find((p) => p.X == point.X && p.Y == point.Y && p.quadrant == point.quadrant);
-                return notEmpty.ship;
+                if (points.Count() > 0)
+                {
+                    var notEmpty = points.Find((p) => p.X == point.X && p.Y == point.Y && p.quadrant == point.quadrant);
+                    return notEmpty.ship;
+                }
+                else
+                {
+                    throw new ArgumentNullException("List is empty");
+                }
+
             }
         }
         public void AddShip(Ship ship, Point point)
@@ -39,7 +48,20 @@ namespace SeaBattle
                 if (points.Count == 0 )
                 {
                     ships.Add(ship);
-                    points.Add(point);
+                    if (ship.Direction=="horizontal")
+                    {
+                        for (int i = point.X; i < ship.Size+point.X; i++)//может меньше равно
+                        {
+                            points.Add(point);
+                        }
+                    }
+                    else if (ship.Direction == "vertical")
+                    {
+                        for (int i = point.Y; i < ship.Size + point.Y; i++)//может меньше равно
+                        {
+                            points.Add(point);
+                        }
+                    }
                 }
                 else
                 {
@@ -48,7 +70,20 @@ namespace SeaBattle
                         if (item.X != point.X && item.Y != point.Y)
                         {
                             ships.Add(ship);
-                            points.Add(point);
+                            if (ship.Direction == "horizontal")
+                            {
+                                for (int i = point.X; i < ship.Size + point.X; i++)//может меньше равно
+                                {
+                                    points.Add(point);
+                                }
+                            }
+                            else if (ship.Direction == "vertical")
+                            {
+                                for (int i = point.Y; i < ship.Size + point.Y; i++)//может меньше равно
+                                {
+                                    points.Add(point);
+                                }
+                            }
                         }
                         else
                         {
@@ -59,6 +94,13 @@ namespace SeaBattle
                 }
             }
         }
-
+        public override string ToString()
+        {
+            return ;
+        }
+        //public override string ToString()
+        //{
+        //    return ships.OrderBy((sh) => Math.Sqrt(Math.Pow(sh.pointStart.X, 2) + Math.Pow(sh.pointStart.Y, 2))).ToString();
+        //}
     }
 }
