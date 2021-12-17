@@ -10,8 +10,7 @@ namespace SeaBattle
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public bool _isEmpty { get; set; } = false;
-        public Ship ship { get; set; }
+
         public int quadrant { get; set; }
         public Point(int x, int y, int qu)
         {
