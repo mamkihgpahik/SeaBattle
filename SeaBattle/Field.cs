@@ -10,25 +10,30 @@ namespace SeaBattle
     public class Field
     {
         private Help helper;
-        private List<Ship> ships;
-        Dictionary<Point, Ship> points; 
+        private List<Ship> ships = new List<Ship>();
+        Dictionary<Point, Ship> points = new Dictionary<Point, Ship>();
+
         private int Height { get; set; }
         private int Width { get; set; }
         public Field(int height, int width)
         {
             this.Height = height;
             this.Width = width;
+            
         }
         public Ship this[Point point]
         {
             get
             {
-                if (points.TryGetValue(point, out Ship ship)) { }
+                
+                if (points.ContainsKey(point))
+                {
+                    return points.Values.First((p)=>p.Equals(point));
+                }
                 else
                 {
                     throw new ArgumentNullException("List is empty");
                 }
-                return ship;
             }
         }
         public void AddShip(Ship ship, Point point)
@@ -40,16 +45,22 @@ namespace SeaBattle
             }
             else
             {
-                if (points.Count == 0 )
+                if (points.Count()==0)
                 {
+
                     ships.Add(ship);
                     if (ship.Direction=="horizontal")
                     {
                         var x = point.X;
-                        for (int i = x; i <= ship.Size+x; i++)//может меньше равно
-                        {                            
+                        //for (int i = x; i <= ship.Size+x; i++)//может меньше равно
+                        //{                            
+                        //    points.Add(point, ship);//добавить point++ ибо поинт же увеличивается
+                        //    point.X++;
+                        //}
+                        for (; point.X<= ship.Size + x; ++point.X)//может меньше равно
+                        {
                             points.Add(point, ship);//добавить point++ ибо поинт же увеличивается
-                            point.X++;
+                            
                         }
                     }
                     else if (ship.Direction == "vertical")
