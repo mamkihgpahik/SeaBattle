@@ -96,11 +96,7 @@ namespace SeaBattle
         }
         public override string ToString()
         {
-            return ;
+            return ps.OrderBy((pos)=> Math.Sqrt(Math.Pow(pos.Key.X, 2) + Math.Pow(pos.Key.Y, 2))).ToString();
         }
-        //public override string ToString()
-        //{
-        //    return ships.OrderBy((sh) => Math.Sqrt(Math.Pow(sh.pointStart.X, 2) + Math.Pow(sh.pointStart.Y, 2))).ToString();
-        //}
     }
 }
