@@ -8,6 +8,6 @@ namespace SeaBattle.Helper
 {
     public class Help
     {
-
+        
     }
 }
