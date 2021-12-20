@@ -24,7 +24,7 @@ namespace SeaBattle
         }
         public override string ToString()
         {
-            return $"{base.ToString()} + MixedShip";
+            return $"{base.ToString()}  MixedShip";
         }
     }
 }

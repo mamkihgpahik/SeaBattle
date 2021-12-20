@@ -9,26 +9,28 @@ namespace SeaBattle
 {
     public class Field
     {
-        private Help helper;
         private List<Ship> ships;
-        //Dictionary<Point, Ship> point1;
-        List<Point> points;
+        private List<Quadrant> quadrants;
+        private List<Point> points;
         private int Height { get; set; }
         private int Width { get; set; }
         public Field(int height, int width)
         {
             this.Height = height;
             this.Width = width;
+            ships = new List<Ship>();
+            points = new List<Point>();
+            quadrants = new List<Quadrant>();
         }
 
-        public Ship this[Point point]
+        public Ship this[Point point, int quadrant]
         {
             get
             {
-                if (points.Count() > 0)
+                if (quadrants.Count() > 0)
                 {
-                    var notEmpty = points.Find((p) => p.X == point.X && p.Y == point.Y && p.quadrant == point.quadrant);
-                    return notEmpty.ship;
+                    var nemp = quadrants.Find((q) => Math.Abs(q.Point.X) == Math.Abs(point.X) && Math.Abs(q.Point.Y) == Math.Abs(point.Y) && q.Qudrant == quadrant);
+                    return nemp.Ship;
                 }
                 else
                 {
@@ -37,83 +39,85 @@ namespace SeaBattle
 
             }
         }
-        public void AddShip(Ship ship, Point point)
+        public void AddShip(Ship ship, Point point, int quadrant)
         {
-           
+
             if (point.X > Width && point.Y > Height)
             {
                 throw new ArgumentOutOfRangeException("You went out of the playing field ");
             }
             else
             {
-                if (points.Count == 0 )
+                if (quadrants.Count == 0)
                 {
                     ships.Add(ship);
-                    if (ship.Direction=="horizontal")
+                    if (ship.Direction == "horizontal")
                     {
                         var x = point.X;
-                        //add item.ship = ship;
-                        //points.add(point); все точки корабля от х до х+size
-                        foreach (var item in points)
+                        for (int i = x; i < ship.Size + x; i++)
                         {
-                            for (int i = x; i <= ship.Size + x; i++)
-                            {
-                                points.Add(point);
-                                item.ship = ship;
-                                point.X++;
-                            }
+                            var point1 = new Point(i, point.Y);
+                            points.Add(point1);
+                            quadrants.Add(new Quadrant(ship, point1, quadrant));
                         }
-
 
                     }
                     else if (ship.Direction == "vertical")
                     {
                         var y = point.Y;
-                        for (int i = y; i <= ship.Size + y; i++)//может меньше равно
+                        for (int i = y; i < ship.Size + y; i++)
                         {
-                            points.Add(point);
-                            point.Y++;
+                            var point1 = new Point(point.X, y);
+                            points.Add(point1);
+                            quadrants.Add(new Quadrant(ship, point1, quadrant));
                         }
                     }
                 }
                 else
                 {
-                    foreach (var item in points)
+                    if (!points.Contains(point))
                     {
-                        if (item.X != point.X && item.Y != point.Y)
+                        ships.Add(ship);
+                        if (ship.Direction == "horizontal")
                         {
-                            ships.Add(ship);
-                            if (ship.Direction == "horizontal")
+                            var x = point.X;
+                            for (int i = x; i < ship.Size + x; i++)
                             {
-                                var x = point.X;
-                                for (int i = x; i <= ship.Size + x; i++)//может меньше равно
-                                {
-                                    points.Add(point);
-                                    point.X++;
-                                }
-                            }
-                            else if (ship.Direction == "vertical")
-                            {
-                                var y = point.Y;
-                                for (int i = y; i <= ship.Size + y; i++)//может меньше равно
-                                {
-                                    points.Add(point);
-                                    point.Y++;
-                                }
+                                var point1 = new Point(x, point.Y);
+                                points.Add(point1);
+                                quadrants.Add(new Quadrant(ship, point1, quadrant));
                             }
                         }
-                        else
+                        else if (ship.Direction == "vertical")
                         {
-                            Console.WriteLine("This point is already taken ");
+                            var y = point.Y;
+                            for (int i = y; i < ship.Size + y; i++)
+                            {
+                                var point1 = new Point(point.X, y);
+                                points.Add(point1);
+                                quadrants.Add(new Quadrant(ship, point1, quadrant));
+                            }
+
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine("This point is already taken ");
                     }
 
                 }
+
             }
         }
         public override string ToString()
         {
-            return points.OrderBy((pos)=> Math.Sqrt(Math.Pow(pos.X, 2) + Math.Pow(pos.Y, 2))).ToString();
+            var qua = quadrants.OrderBy((qua) => Math.Sqrt(Math.Pow(qua.Point.X, 2) + Math.Pow(qua.Point.Y, 2)));
+            string str = "";
+            foreach (var item in qua)
+            {
+                 str += $" {item.Ship.ToString()}\n";
+            }
+            return str;
         }
     }
 }

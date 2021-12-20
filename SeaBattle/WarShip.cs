@@ -19,7 +19,7 @@ namespace SeaBattle
         }
         public override string ToString()
         {
-            return $"{base.ToString()} + WarShip";
+            return $"{base.ToString()}  WarShip";
         }
     }
 }
