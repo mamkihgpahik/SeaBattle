@@ -11,6 +11,7 @@ namespace SeaBattle
         public int X { get; set; }
         public int Y { get; set; }
         public int quadrant { get; set; }
+        public Ship ship { get; set; }
         public Point(int x, int y, int qu)
         {
             switch (qu)
